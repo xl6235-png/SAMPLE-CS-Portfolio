@@ -1,9 +1,20 @@
-import { motion } from 'motion/react';
+import { motion, useScroll, useSpring } from 'motion/react';
 import { Github, Linkedin, Mail, ExternalLink } from 'lucide-react';
 
 export default function Navbar() {
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
+
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-1 bg-blue-600 origin-left z-50"
+        style={{ scaleX }}
+      />
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         <motion.div 
           initial={{ opacity: 0, x: -20 }}
